@@ -5,9 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ContoDeposito extends Conto {
     private double tassoInteresse=0.1;
-
+    private static final Logger logger = LogManager.getLogger(ContoDeposito.class);
+	private double interest = 0;
+	
     public ContoDeposito() {
     	super();
 	}
@@ -56,8 +61,13 @@ public class ContoDeposito extends Conto {
 	    	
 	    	double tassIntGiorn = tassoInteresse / 365;
 	    	double saldoInteres = tassIntGiorn * doublePenltimoSaldo;
-	    	double interest = differenzaInGiorni * saldoInteres;
+	    	interest = differenzaInGiorni * saldoInteres;
 	
+	    	logger.debug("Tasso Interesse: {}", tassoInteresse);
+	    	logger.debug("Tasso Interesse Giornaliero: {}", tassIntGiorn);
+	    	logger.debug("Saldo Interesse: {}", saldoInteres);
+	    	logger.debug("Interesse: {}", interest);
+	    	
 	        ultimaRiga[4] = String.valueOf((Double.parseDouble(ultimoInteresse)) + interest); // Update the interest
 	
 	        // Now, add this updated row back to the 'info' list
